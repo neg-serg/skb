@@ -40,15 +40,21 @@ main(int argc, char *argv[]){
 
     groups = malloc(sizeof(char*)*ngroups);
     for (i = 0; i < ngroups; i++)
-	    groups[i] = malloc(MAXGROUPLENGTH); 
-    
+	    groups[i] = malloc(MAXGROUPLENGTH);
+
     get_gr_names(dpy, kb, ngroups, groups);
     enable_gr_events(dpy);
     for(;;) {
         active = get_active_gr(dpy);
         if(active != old) {
-            puts(groups[active]);
-	    fflush(stdout);
+            if(!strcmp(groups[active], "Eng")){
+                puts("en");
+            } else if (!strcmp(groups[active], "Rus")){
+                puts("ru");
+            } else {
+                puts(groups[active]);
+            }
+            fflush(stdout);
             old = active;
         }
 	if(argc > 1)
